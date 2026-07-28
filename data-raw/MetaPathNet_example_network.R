@@ -20,19 +20,19 @@ signaling_paths_hsa <- c(
 )
 
 ## Build human network
-net_trp_hsa <- MPN_keggNetwork(
+net_trp_hsa <- buildKeggNetwork(
   metabo_paths    = metabo_paths_hsa,
   signaling_paths = signaling_paths_hsa
 )
 
 ## Build E. coli network
-net_trp_eco <- MPN_keggNetwork(
+net_trp_eco <- buildKeggNetwork(
   metabo_paths    = c("eco00380", "eco00400"),
   signaling_paths = NULL
 )
 
 ## Merge host and microbial networks
-MetaPathNet_example_network <- MPN_mergeNetworks(
+MetaPathNet_example_network <- combineNetworks(
   net_trp_hsa,
   net_trp_eco
 )

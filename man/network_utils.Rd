@@ -8,7 +8,7 @@ Internal utility functions used by MetaPathNet.
 }
 \description{
 A small set of helpers to inspect and edit network edge lists produced by
-\code{MPN_keggNetwork()}, or related functions. These utilities make it easier to:
+\code{buildKeggNetwork()}, or related functions. These utilities make it easier to:
 \itemize{
 \item check whether user-supplied nodes are present in a network,
 \item merge equivalent nodes under a single identifier,
@@ -19,13 +19,13 @@ A small set of helpers to inspect and edit network edge lists produced by
 \details{
 Each function has its own documentation and examples:
 \itemize{
-\item \code{\link{MPN_findMappedNodes}} — test which nodes are mapped or unmapped.
-\item \code{\link{MPN_replaceNode}} — replace specified nodes with a new ID.
-\item \code{\link{MPN_removeNode}} — remove specified nodes and their edges.
-\item \code{\link{MPN_removeDrugs}} — remove all KEGG drug nodes (\code{"dr:"}).
+\item \code{\link{findMappedNodes}} — test which nodes are mapped or unmapped.
+\item \code{\link{replaceNode}} — replace specified nodes with a new ID.
+\item \code{\link{removeNetworkNodes}} — remove specified nodes and their edges.
+\item \code{\link{removeDrugs}} — remove all KEGG drug nodes (\code{"dr:"}).
 }
 }
 \seealso{
-\code{\link{MPN_keggNetwork}}, \code{\link{MPN_egoNetwork}}
+\code{\link{buildKeggNetwork}}, \code{\link{buildEgoNetwork}}
 }
 \keyword{internal}

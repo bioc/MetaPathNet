@@ -11,3 +11,4 @@
 ^MetaPathNet[.]Rcheck$
 ^MetaPathNet_.*[.]tar[.]gz$
 ^data-raw$
+^doc$

@@ -24,7 +24,7 @@ library(MetaPathNet)
 ## ==============================================================
 ## Step 2 — Construct the host-microbe metabolic network
 ## ==============================================================
-network_hostMicrobe <- MPN_crossSpeciesNetwork(
+network_hostMicrobe <- buildCrossSpeciesNetwork(
   organism_codes = c("hsa", "eci"),
   path_type      = "metabolic"
 )
@@ -41,7 +41,7 @@ fmo_reaction <- data.frame(
   stringsAsFactors = FALSE
 )
 
-fmo_extension <- MPN_customReaction(
+fmo_extension <- addCustomReaction(
   reaction_table = fmo_reaction,
   substrate_col  = "substrates",
   product_col    = "products",
@@ -52,12 +52,12 @@ fmo_extension <- MPN_customReaction(
 ## ==============================================================
 ## Step 4 — Add MetaCyc-derived reaction extensions
 ## ==============================================================
-tma_extension <- MPN_mapReaction(
+tma_extension <- mapReaction(
   reaction_ids = c("RXN-12900", "RXN-13946"),
   source       = "metacyc"
 )
 
-network_mixed <- MPN_mergeNetworks(
+network_mixed <- combineNetworks(
   network_hostMicrobe,
   tma_extension,
   fmo_extension
@@ -71,12 +71,12 @@ compound_tma <- c("cpd:C00114", "cpd:C00487", "cpd:C00719",
 
 gene_tma <- c("K18277", "K07811", "K00108", "K14156", "K00485", "K20038")
 
-compound_tma <- MPN_findMappedNodes(
+compound_tma <- findMappedNodes(
   nodes         = compound_tma,
   network_table = network_mixed
 )$mapped_nodes
 
-gene_tma <- MPN_findMappedNodes(
+gene_tma <- findMappedNodes(
   nodes         = gene_tma,
   network_table = network_mixed
 )$mapped_nodes
@@ -84,7 +84,7 @@ gene_tma <- MPN_findMappedNodes(
 ## ==============================================================
 ## Step 6 — Extract the shortest-path subnetwork
 ## ==============================================================
-network_shortestPath <- MPN_shortestPaths(
+network_shortestPath <- findShortestPaths(
   network_table      = network_mixed,
   source_nodes       = gene_tma,
   target_nodes       = compound_tma,
@@ -100,7 +100,7 @@ network_shortestPath <- MPN_shortestPaths(
 ## ==============================================================
 ## Cytoscape must be open and running.
 
-MPN_annotateOrigin(
+annotateOrigin(
   network_table     = network_shortestPath,
   bacteria_codes    = "eci",
   name              = TRUE,

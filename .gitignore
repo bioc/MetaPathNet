@@ -20,3 +20,5 @@ bioccheck_log.txt
 vignette_preview/
 vignettes/*.html
 vignettes/*.R
+/doc/
+/Meta/

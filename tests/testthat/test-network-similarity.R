@@ -11,13 +11,13 @@ fake_net <- matrix(
 colnames(fake_net) <- c("source", "target", "interaction_type")
 
 ## -----------------------------------------------------------
-## MPN_netSimilarity
+## networkSimilarity
 ## -----------------------------------------------------------
-test_that("MPN_netSimilarity computes node-level Jaccard", {
+test_that("networkSimilarity computes node-level Jaccard", {
   net_a <- fake_net[1:3, , drop = FALSE]
   net_b <- fake_net[3:6, , drop = FALSE]
 
-  sim <- MPN_netSimilarity(net_a, net_b, type = "node")
+  sim <- networkSimilarity(net_a, net_b, type = "node")
 
   expect_true(is.matrix(sim))
   expect_equal(nrow(sim), 2)
@@ -26,8 +26,8 @@ test_that("MPN_netSimilarity computes node-level Jaccard", {
   expect_true(sim[1, 2] >= 0 && sim[1, 2] <= 1)
 })
 
-test_that("MPN_netSimilarity computes edge-level Jaccard", {
-  sim <- MPN_netSimilarity(fake_net, fake_net, type = "edge")
+test_that("networkSimilarity computes edge-level Jaccard", {
+  sim <- networkSimilarity(fake_net, fake_net, type = "edge")
 
   expect_true(is.matrix(sim))
   expect_equal(nrow(sim), 2)
@@ -35,6 +35,6 @@ test_that("MPN_netSimilarity computes edge-level Jaccard", {
   expect_equal(sim[1, 2], 1)
 })
 
-test_that("MPN_netSimilarity rejects single input", {
-  expect_error(MPN_netSimilarity(fake_net))
+test_that("networkSimilarity rejects single input", {
+  expect_error(networkSimilarity(fake_net))
 })

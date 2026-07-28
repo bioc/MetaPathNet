@@ -1,6 +1,6 @@
 Package: MetaPathNet
 Title: KEGG-Based Metabolic and Signaling Network Analysis for Systems Biology
-Version: 0.99.4
+Version: 0.99.5
 Authors@R: c(
     person(
         "Zhaojie", "Wang",
@@ -10,7 +10,10 @@ Authors@R: c(
     ),
     person("Francesc", "Puig-Castellvi", role = "aut"),
     person("Manyi", "Jia", role = "aut"),
-    person("Marc-Emmanuel", "Dumas", role = c("aut", "ths"))
+    person("Marc-Emmanuel", "Dumas", role = c("aut", "ths")),
+    person("Centre National de la Recherche Scientifique", role = "fnd"),
+    person("Imperial College London", role = "fnd"),
+    person("French National Research Agency", role = "fnd")
     )
 Description: Provides tools to construct KEGG-based metabolic and
     signaling networks as edge lists for single-organism or cross-species
@@ -21,7 +24,7 @@ Description: Provides tools to construct KEGG-based metabolic and
     supports extension of KEGG-based networks through additional reaction
     resources and user-defined reactions.
 Depends:
-    R (>= 4.3.0)
+    R (>= 4.6.0)
 Imports:
     igraph,
     httr,
@@ -36,6 +39,7 @@ Imports:
     graph,
     mygene,
     ggplot2,
+    rlang,
     curl,
     jsonlite,
     webchem,
@@ -52,7 +56,7 @@ biocViews: Network, Pathways, KEGG, SystemsBiology, Classification, Microbiome
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 URL: https://github.com/zhaojie-wang/MetaPathNet
 BugReports: https://github.com/zhaojie-wang/MetaPathNet/issues
+Config/roxygen2/version: 8.0.0

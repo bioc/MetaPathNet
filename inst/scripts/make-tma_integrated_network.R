@@ -24,7 +24,7 @@ library(MetaPathNet)
 ## ==============================================================
 ## Step 2 — Construct the host–microbe metabolic network
 ## ==============================================================
-network_hostMicrobe <- MPN_crossSpeciesNetwork(
+network_hostMicrobe <- buildCrossSpeciesNetwork(
   organism_codes = c("hsa", "eci"),
   path_type      = "metabolic"
 )
@@ -41,7 +41,7 @@ fmo_reaction <- data.frame(
   stringsAsFactors = FALSE
 )
 
-fmo_extension <- MPN_customReaction(
+fmo_extension <- addCustomReaction(
   reaction_table = fmo_reaction,
   substrate_col  = "substrates",
   product_col    = "products",
@@ -49,7 +49,7 @@ fmo_extension <- MPN_customReaction(
   direction_col  = "direction"
 )
 
-network_hostMicrobe <- MPN_mergeNetworks(
+network_hostMicrobe <- combineNetworks(
   network_hostMicrobe,
   fmo_extension
 )
@@ -60,7 +60,7 @@ network_hostMicrobe <- MPN_mergeNetworks(
 ## Cytoscape (version 3.9.0 or higher) must be open and running.
 ## The same color settings as in the vignette were used.
 
-MPN_viewNetworkCy(
+viewNetworkCy(
   network_table     = network_hostMicrobe,
   category          = TRUE,
   style_interaction = TRUE,

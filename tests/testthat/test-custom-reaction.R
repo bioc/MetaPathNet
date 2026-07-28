@@ -2,9 +2,9 @@
 ## (no KEGG access needed)
 
 ## -----------------------------------------------------------
-## MPN_customReaction
+## addCustomReaction
 ## -----------------------------------------------------------
-test_that("MPN_customReaction builds edges with KO layer", {
+test_that("addCustomReaction builds edges with KO layer", {
   rt <- data.frame(
     substrates = "cpd:C00078",
     products   = "cpd:C00328",
@@ -13,7 +13,7 @@ test_that("MPN_customReaction builds edges with KO layer", {
     stringsAsFactors = FALSE
   )
 
-  result <- MPN_customReaction(
+  result <- addCustomReaction(
     reaction_table = rt,
     substrate_col  = "substrates",
     product_col    = "products",
@@ -27,7 +27,7 @@ test_that("MPN_customReaction builds edges with KO layer", {
   expect_true(any(result[, "interaction_type"] == "custom:irreversible"))
 })
 
-test_that("MPN_customReaction builds reversible edges in both directions", {
+test_that("addCustomReaction builds reversible edges in both directions", {
   rt <- data.frame(
     substrates = "cpd:C00078",
     products   = "cpd:C00328",
@@ -36,7 +36,7 @@ test_that("MPN_customReaction builds reversible edges in both directions", {
     stringsAsFactors = FALSE
   )
 
-  result <- MPN_customReaction(
+  result <- addCustomReaction(
     reaction_table = rt,
     substrate_col  = "substrates",
     product_col    = "products",
@@ -50,14 +50,14 @@ test_that("MPN_customReaction builds reversible edges in both directions", {
   expect_true(reverse)
 })
 
-test_that("MPN_customReaction works without KO column", {
+test_that("addCustomReaction works without KO column", {
   rt <- data.frame(
     substrates = "cpd:C00078",
     products   = "cpd:C00328",
     stringsAsFactors = FALSE
   )
 
-  result <- MPN_customReaction(
+  result <- addCustomReaction(
     reaction_table = rt,
     substrate_col  = "substrates",
     product_col    = "products"

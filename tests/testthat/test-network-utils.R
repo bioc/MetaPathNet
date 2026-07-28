@@ -11,10 +11,10 @@ fake_net <- matrix(
 colnames(fake_net) <- c("source", "target", "interaction_type")
 
 ## -----------------------------------------------------------
-## MPN_findMappedNodes
+## findMappedNodes
 ## -----------------------------------------------------------
-test_that("MPN_findMappedNodes finds mapped and unmapped nodes", {
-  res <- MPN_findMappedNodes(
+test_that("findMappedNodes finds mapped and unmapped nodes", {
+  res <- findMappedNodes(
     nodes = c("cpd:C00078", "K00453", "FAKE_NODE"),
     network_table = fake_net
   )
@@ -24,8 +24,8 @@ test_that("MPN_findMappedNodes finds mapped and unmapped nodes", {
   expect_true("FAKE_NODE" %in% res$unmapped_nodes)
 })
 
-test_that("MPN_findMappedNodes normalises Cxxxxx to cpd:Cxxxxx", {
-  res <- MPN_findMappedNodes(
+test_that("findMappedNodes normalises Cxxxxx to cpd:Cxxxxx", {
+  res <- findMappedNodes(
     nodes = c("C00078"),
     network_table = fake_net
   )
@@ -34,34 +34,34 @@ test_that("MPN_findMappedNodes normalises Cxxxxx to cpd:Cxxxxx", {
 })
 
 ## -----------------------------------------------------------
-## MPN_mergeNetworks
+## combineNetworks
 ## -----------------------------------------------------------
-test_that("MPN_mergeNetworks merges two networks", {
+test_that("combineNetworks merges two networks", {
   net_a <- fake_net[1:3, , drop = FALSE]
   net_b <- fake_net[4:6, , drop = FALSE]
 
-  merged <- MPN_mergeNetworks(net_a, net_b)
+  merged <- combineNetworks(net_a, net_b)
 
   expect_true(is.matrix(merged))
   expect_equal(ncol(merged), 3)
   expect_true(nrow(merged) >= max(nrow(net_a), nrow(net_b)))
 })
 
-test_that("MPN_mergeNetworks removes duplicate edges", {
-  merged <- MPN_mergeNetworks(fake_net, fake_net)
+test_that("combineNetworks removes duplicate edges", {
+  merged <- combineNetworks(fake_net, fake_net)
 
   expect_equal(nrow(merged), nrow(unique(fake_net)))
 })
 
-test_that("MPN_mergeNetworks rejects single input", {
-  expect_error(MPN_mergeNetworks(fake_net))
+test_that("combineNetworks rejects single input", {
+  expect_error(combineNetworks(fake_net))
 })
 
 ## -----------------------------------------------------------
-## MPN_removeNode
+## removeNetworkNodes
 ## -----------------------------------------------------------
-test_that("MPN_removeNode removes a node and its edges", {
-  result <- MPN_removeNode(
+test_that("removeNetworkNodes removes a node and its edges", {
+  result <- removeNetworkNodes(
     nodes_to_remove = "K00453",
     network_table   = fake_net
   )
@@ -71,8 +71,8 @@ test_that("MPN_removeNode removes a node and its edges", {
   expect_true(nrow(result) < nrow(fake_net))
 })
 
-test_that("MPN_removeNode normalises compound IDs", {
-  result <- MPN_removeNode(
+test_that("removeNetworkNodes normalises compound IDs", {
+  result <- removeNetworkNodes(
     nodes_to_remove = "C00078",
     network_table   = fake_net
   )
@@ -82,10 +82,10 @@ test_that("MPN_removeNode normalises compound IDs", {
 })
 
 ## -----------------------------------------------------------
-## MPN_removeDrugs
+## removeDrugs
 ## -----------------------------------------------------------
-test_that("MPN_removeDrugs removes dr: nodes", {
-  result <- MPN_removeDrugs(fake_net)
+test_that("removeDrugs removes dr: nodes", {
+  result <- removeDrugs(fake_net)
 
   all_nodes <- unique(as.vector(result[, 1:2]))
   has_drug <- any(grepl("^dr:", all_nodes))
@@ -93,18 +93,18 @@ test_that("MPN_removeDrugs removes dr: nodes", {
   expect_true(nrow(result) < nrow(fake_net))
 })
 
-test_that("MPN_removeDrugs returns unchanged network when no drugs present", {
+test_that("removeDrugs returns unchanged network when no drugs present", {
   no_drug_net <- fake_net[!grepl("dr:", fake_net[, 1]) & !grepl("dr:", fake_net[, 2]), , drop = FALSE]
-  result <- MPN_removeDrugs(no_drug_net)
+  result <- removeDrugs(no_drug_net)
 
   expect_equal(nrow(result), nrow(no_drug_net))
 })
 
 ## -----------------------------------------------------------
-## MPN_replaceNode
+## replaceNode
 ## -----------------------------------------------------------
-test_that("MPN_replaceNode replaces a node ID", {
-  result <- MPN_replaceNode(
+test_that("replaceNode replaces a node ID", {
+  result <- replaceNode(
     nodes_to_replace = "K00453",
     replacement_node = "K99999",
     network_table    = fake_net
@@ -115,8 +115,8 @@ test_that("MPN_replaceNode replaces a node ID", {
   expect_true("K99999" %in% all_nodes)
 })
 
-test_that("MPN_replaceNode normalises compound IDs", {
-  result <- MPN_replaceNode(
+test_that("replaceNode normalises compound IDs", {
+  result <- replaceNode(
     nodes_to_replace = "C00078",
     replacement_node = "C99999",
     network_table    = fake_net

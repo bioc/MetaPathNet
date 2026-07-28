@@ -15,8 +15,8 @@
 #' @return A character matrix containing source nodes, target nodes, and
 #'   interaction types.
 #'
-#' @source Constructed using \code{MPN_keggNetwork()} and
-#' \code{MPN_mergeNetworks()} from KEGG pathways \code{hsa00380},
+#' @source Constructed using \code{buildKeggNetwork()} and
+#' \code{combineNetworks()} from KEGG pathways \code{hsa00380},
 #' \code{hsa04060}, \code{hsa04630}, \code{hsa04064}, \code{hsa04660},
 #' \code{hsa04659}, \code{eco00380}, and \code{eco00400}.
 #'

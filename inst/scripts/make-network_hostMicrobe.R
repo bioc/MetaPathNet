@@ -12,7 +12,7 @@
 ##   used in the choline–TMA–TMAO vignette.
 ##
 ## Source function:
-##   MPN_crossSpeciesNetwork(organism_codes = c("hsa", "eci"),
+##   buildCrossSpeciesNetwork(organism_codes = c("hsa", "eci"),
 ##                           path_type = "metabolic")
 ##
 ## Note:
@@ -25,7 +25,7 @@
 library(MetaPathNet)
 
 ## Build the host–microbiome metabolic network
-network_hostMicrobe <- MPN_crossSpeciesNetwork(
+network_hostMicrobe <- buildCrossSpeciesNetwork(
   organism_codes = c("hsa", "eci"),
   path_type      = "metabolic"
 )
